@@ -748,7 +748,8 @@ static inline void free_rmap_item(struct rmap_item *rmap_item)
 static inline struct stable_node *alloc_stable_node(void)
 {
 	struct stable_node *node;
-	node = kmem_cache_alloc(stable_node_cache, GFP_KERNEL | GFP_ATOMIC);
+	node = kmem_cache_alloc(stable_node_cache, GFP_KERNEL |
+				__GFP_NORETRY | __GFP_NOWARN);
 	if (!node)
 		return NULL;
 
@@ -766,7 +767,8 @@ static inline void free_stable_node(struct stable_node *stable_node)
 static inline struct tree_node *alloc_tree_node(struct list_head *list)
 {
 	struct tree_node *node;
-	node = kmem_cache_zalloc(tree_node_cache, GFP_KERNEL | GFP_ATOMIC);
+	node = kmem_cache_zalloc(tree_node_cache, GFP_KERNEL |
+				 __GFP_NORETRY | __GFP_NOWARN);
 	if (!node)
 		return NULL;
 
